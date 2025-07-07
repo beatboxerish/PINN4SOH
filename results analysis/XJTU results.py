@@ -4,6 +4,18 @@ XJTU数据集的结果分析
 English:
     This file is used to analyze the results of the XJTU dataset.
 '''
+
+import sys
+import os
+
+# Get the directory where this script lives
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Go up to the project root (i.e., where 'utils' lives)
+project_root = os.path.abspath(os.path.join(current_dir, ".."))
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
+
 import pandas as pd
 import numpy as np
 import os
@@ -204,8 +216,8 @@ class Results:
 
 
 if __name__ == '__main__':
-    root = '../results of reviewer/XJTU results/'
-    writer = pd.ExcelWriter('../results of reviewer/XJTU_results.xlsx')
+    root = '/content/PINN4SOH/results of reviewer/XJTU results/'
+    writer = pd.ExcelWriter('/content/PINN4SOH/results of reviewer/XJTU_results.xlsx')
 
     results = Results(root)
     for batch in range(6):
@@ -213,7 +225,7 @@ if __name__ == '__main__':
         df_battery_mean.to_excel(writer,sheet_name='battery_mean_{}'.format(batch),index=False)
         # df_experiment_mean = results.get_experiments_mean(train_batch=batch,test_batch=batch,total_experiment=10)
         # df_experiment_mean.to_excel(writer,sheet_name='experiment_mean_{}'.format(batch),index=False)
-    writer.save()
+    writer.close()
 
 
 
